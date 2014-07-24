@@ -1,0 +1,22 @@
+\begin{abstract}
+
+  We propose a procedure to iteratively ``drop out'' entries in the
+  data matrix for linear regression, drawing inspiration from a recent
+  heuristic for training large multi-layer neural networks for image
+  processing. Rather than using dropout as a form of regularization,
+  our rationale for zeroing out data is to enable more
+  efficient computation of a linear model, while controlling the
+  excess risk that this data corruption incurs.  To achieve this we
+  make use of recent algorithmic advances in ``subspace embedding''
+  techniques for low rank approximation and least squares estimation
+  from sparse data matrices.  We develop these ideas in the setting of
+  linear regression for large scale focusing on the regime where the
+  sample size is large relative to the number of variables.  Our
+  analysis and simulations show that the dropout method has a
+  favorable risk-computation tradeoff compared with simple subsampling
+  of the data.  We also apply these ideas to the setting where many of
+  the variables are irrelevant.  For this case we propose a dropout
+  version of the alternating direction method of multipliers 
+  algorithm for approximate $\ell_1$-regularized least squares.
+\end{abstract}
+

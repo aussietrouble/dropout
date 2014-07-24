@@ -1,0 +1,45 @@
+\section{Analysis of Dropout Ridge Regression}
+\label{sec:ridgeanalysis}
+In this section we will analyze the error caused by the dropout for ridge regression. Recall that the ridge estimator is the solution to
+\begin{equation}
+\check{\beta} = \argmin_{\beta} \| Y - \XX \beta \|^2 + \rho \| \beta \|^2 = (\XX^T \XX + \rho I)^{-1} \XX^T Y
+\end{equation}
+whereas our dropout estimator solves
+\begin{equation}
+\hat{\beta} = \arg\,\min_{\beta} \| Y - \mathring{\XX} \beta \|^2 + \rho \| \beta \|^2 = (\mathring{\XX}^T \mathring{\XX} + \rho I)^{-1} \mathring{\XX}^T Y
+\end{equation}
+When $\mathring{\XX}$ is sparse, this can be solved approximately using the subspace embeddings from \cite{Clarkson:2012, Nelson:2012}.
+We will first decompose the error caused by replacing $\check{\beta}$ by $\hat{\beta}$ and then consider the additional error due to solving the system approximately.
+
+It will be useful to consider the following auxiliary estimators:
+\begin{align}
+\tilde{\beta} &= (\mathring{\XX}^T \mathring{\XX} + \rho I)^{-1} \XX^T Y \\
+\bar{\beta} &= (\XX^T \XX + D + \rho I)^{-1} \XX^T Y
+\end{align}
+where $D$ is a diagonal matrix with $D_{jj} = \frac{1-\theta_j}{\theta_j} \sum_{ij} x_{ij}^2$. Notice that $D = \E[\mathring{\XX}^T \mathring{\XX}] - \XX^T \XX$. Then
+\begin{equation}
+\| \hat{\beta} - \check{\beta} \| \leq \| \hat{\beta} - \tilde{\beta} \| + \| \tilde{\beta} - \bar{\beta} \| + \| \bar{\beta} - \check{\beta} \|
+\end{equation}
+The first term, $\| \hat{\beta} - \tilde{\beta} \| $, represents the error in estimating the covariance between $\XX$ and $Y$. The second term represents the error in estimating the dropout sample covariance, $\mathring{\XX}^T \mathring{\XX}$. The third term gives the additional error due to $\mathring{\XX}^T \mathring{\XX}$ being a biased estimate of $\XX^T \XX$.
+
+We begin with the first term, which we rewrite as
+\begin{equation}
+\| \hat{\beta} - \tilde{\beta} \|  \leq \| (\mathring{\XX}^T \mathring{\XX} + \rho I)^{-1}  \| \| (\mathring{\XX} - \XX)^T Y \|
+\end{equation}
+The first term should be close to $\| (\XX^T \XX + \rho I )^{-1} \| = O_p(n)$. For the second term, $\frac{1}{n}\mathring{\XX}^T Y$ is a sample covariance and $\frac{1}{n} \XX^T Y$ is its mean conditional on $\XX$, so we expect $\| (\mathring{\XX} - \XX)^T Y \| = \tilde{O}_p (\sqrt{p n})$. In fact, this difference also depends on $\theta_{\min}$ and is the basis for the risk-computation tradeoff. 	OH HAI SHOUD PROBABLY MAKE A BIGGER DEAL OF THAT LAST SENTENCE. We formalize this intuition in the following 2 lemmas. The first is a straightforward application of Hoeffding's Inequality.
+
+\begin{lemma} Write $\mathring{X}_j$ and $X_j$ for the $j$th columns of $\mathring{\XX}$ and $\XX$ respectively. Then for each $j$
+\begin{equation}
+\PP [ |(\mathring{X}_j - X_j)^T Y| > t) \leq \exp \left( 1 - \frac{c t^2}{\|Y\|^2 \max \lbrace (\frac{1-\theta_{\min}}{\theta_{\min}})^2, 1 \rbrace \max_{i,j} x_{ij}^2} \right)
+\end{equation}
+This implies that
+\begin{equation}
+\PP [ \max_j |(\mathring{X}_j - X_j)^T Y | > t) \leq p \exp \left( 1 - \frac{c t^2}{\|Y\|^2 \max \lbrace (\frac{1-\theta_{\min}}{\theta_{\min}})^2, 1 \rbrace \max_{i,j} x_{ij}^2} \right)
+\end{equation}
+\end{lemma}
+\begin{proof}
+$\mathring{x}_{ij} - x_{ij}$ are bounded and thus sub-Gaussian random variables with parameter $\max \lbrace \frac{1-\theta_{\min}}{\theta_{\min}}, 1 \rbrace  \max_{i,j} |x_{ij}|$. Then the first conclusion follows. To get the second conclusion, simply take a union bound over the $p$ columns of $\XX$.
+\end{proof}
+
+The next lemma is a consequence of the Matrix Bernstein Inequality, see \cite{Tropp:2012}.
+

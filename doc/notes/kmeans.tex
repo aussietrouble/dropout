@@ -1,0 +1,236 @@
+\documentclass[12pt]{imsart}
+\setattribute{infoline}{text}{file: \jobname.tex\ date: \today}
+\def\abstractname{Summary}
+
+\RequirePackage[OT1]{fontenc}
+\RequirePackage{amsthm,amsmath,amsfonts,natbib}
+%\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
+\RequirePackage{hypernat}
+\usepackage{times}
+%\usepackage[lite,subscriptcorrection,slantedGreek,nofontinfo]{mtpro2}
+\bibliographystyle{abbrvnat}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{fullpage}
+\usepackage{graphicx,url}
+\usepackage{accents}
+
+\bibpunct{(}{)}{;}{a}{,}{,}
+
+% settings
+%\pubyear{2006}
+%\volume{0}
+%\issue{0}
+%\firstpage{1}
+%\lastpage{8}
+
+\startlocaldefs
+\numberwithin{equation}{section}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheoremstyle{remark}{\topsep}{\topsep}%
+     {\normalfont}% Body font
+     {}           % Indent amount (empty = no indent, \parindent = para indent)
+     {\bfseries}  % Thm head font
+     {.}          % Punctuation after thm head
+     {.5em}       % Space after thm head (\newline = linebreak)
+     {\thmname{#1}\thmnumber{ #2}\thmnote{ #3}}% Thm head spec
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{assumption}{Assumption}[section]
+\newtheorem{definition}{Definition}[section]
+\endlocaldefs
+
+\renewcommand{\baselinestretch}{1.1}
+\setcounter{tocdepth}{2}
+%\parskip12pt
+\parindent15pt
+\footskip30pt
+%\large\normalsize
+\def\mbf#1{\mbox{\boldmath$#1$}}
+\def\comma{\unskip,~}
+\def\truep{p^*}
+\def\div{\|\,}
+\long\def\comment#1{}
+\def\reals{{\mathbb R}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\supp{\mathop{\text{supp}\kern.2ex}}
+\def\argmin{\mathop{\text{\rm arg\,min}}}
+\def\arginf{\mathop{\text{\rm arg\,inf}}}
+\def\argmax{\mathop{\text{\rm arg\,max}}}
+\let\hat\widehat
+\let\tilde\widetilde
+\def\csd{${}^*$}
+\def\mld{${}^\dag$}
+\def\dos{${}^\ddag$}
+\def\W{\widetilde Y}
+\def\Z{\widetilde X}
+\let\hat\widehat
+\let\tilde\widetilde
+\def\ds{\displaystyle}
+\def\bs{\backslash}
+\def\1{{(1)}}
+\def\2{{(2)}}
+\def\pn{{(n)}}
+\def\ip{{(i)}}
+\def\except{\backslash}
+\def\npn{\mathop{\textit{NPN\,}}}
+\def\npnsymbol{
+  \pspicture(-.2,-.2)(.2,.2)
+  \def\cw{.20}
+  \cnode[fillstyle=none,linewidth=.5pt](0,0){8pt}{L1}
+  \rput(0,0){\tiny\PHhide}
+  \psline[linewidth=.5pt,linecolor=black]{-}(-\cw,-\cw)(\cw,\cw)
+  \endpspicture
+}
+\def\i{{(i)}}
+\def\cE{{\mathcal{C}}}
+\def\cM{{\mathcal{M}}}
+\def\cF{{\mathcal{F}}}
+\def\cP{{\mathcal{P}}}
+\def\cG{{\mathcal{G}}}
+\def\M{{\mathcal{M}}}
+\def\tr{\mathop{\text{tr}}}
+\long\def\comment#1{}
+\def\N{\textit{N}\kern.3ex}
+\def\t{{\scriptstyle \top}}
+\def\fs{\footnotesize}
+\let\hat\widehat
+\let\epsilon\varepsilon
+\let\phi\varphi
+\def\ccc{CCC}
+\def\N{\mbox{\it N}\,}
+\def\NPN{\mathop{\mbox{\it NPN}}\,}
+\def\F{\mathcal{F}}
+\def\T{\mathcal{T}}
+\def\H{\mathcal{H}}
+\def\S{S}
+\def\Cov{\mathop{\mathbb{C}\textrm{ov}}\kern.1ex}
+\def\Var{\mathop{\mathbb{V}\textrm{ar}}\kern.1ex}
+\def\had{\!\circ\!}
+\def\PNL{X^v}
+\def\Cost{C^v}
+\def\Value{V^v}
+\def\Fill{\iS}
+\def\Impacted{\tilde S}
+\def\uS{\tilde S}
+\def\iS{S^v}
+\def\Volume{\tilde N}
+\def\uVolume{N}
+\def\diag{\text{diag}}
+\def\reals{{\mathbb R}}
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\supp{\mathop{\text{supp}\kern.2ex}}
+\def\argmin{\mathop{\text{arg\,min}\kern.2ex}}
+\def\argmax{\mathop{\text{arg\,max}\kern.2ex}}
+\let\hat\widehat
+\let\tilde\widetilde
+\def\csd{${}^*$}
+\def\mld{${}^\dag$}
+\def\dos{${}^\ddag$}
+\def\W{\widetilde Y}
+\def\Z{\widetilde X}
+\def\given{\,|\,}
+\def\C{\mathcal{C}}
+\def\D{\mathcal{D}}
+\def\M{\mathcal{M}}
+%\def\N{\mathcal{N}}
+\def\N{S}
+\def\tr{\mathop{\text{tr}}}
+\def\ntr{\mathop{\text{tr}_n}}
+\def\ptr{\mathop{\text{tr}_p}}
+\def\s{\backslash}
+\def\p{\partial}
+\def\MS#1{\tilde{#1}}
+%\def\MS#1{#1[\uS]}
+\def\ones{\text{\bf 1}}
+\def\ip#1#2{\langle #1, #2\rangle}
+\def\sparsify{\mathop{\mbox{sparsify}}}
+\def\betas#1{\widehat\beta^{(#1)}}
+\def\thetas#1{\theta^{(#1)}}
+%\def\Rs#1{\accentset{\circ}{R}^{(#1)}}
+\def\Rs#1{{R}^{(#1)}}
+\def\Zs#1{\mbf{Z}^{(#1)}}
+\def\X{\mbf{X}}
+\def\Xs#1{\accentset{\;\circ}{\mbf{X}}^{(#1)}}
+\def\hadamard{\mathop{\raise.5ex\hbox{$\scriptstyle\bullet$}}}
+\parskip12pt
+\parindent0pt
+
+\begin{document}
+
+\begin{frontmatter}
+{\bf The Graduated Dropout}
+\end{frontmatter}
+
+\begin{center}
+\begin{minipage}{.75\columnwidth}
+\begin{algorithmic}[1]
+\Procedure{$k$-Means}{$k,\{x_1,\ldots, x_n\}$}
+   \State Initialize $\{c_1,\ldots, c_k\}$
+   \While{not converged}
+      \State $c(i) = \argmin_{j=1,\ldots,k} \|x_i - c_j\|^2$, $i=1,\ldots, n$
+      \State $c_j \gets \text{mean}\left\{x_i \,:\, c(i) = j\right\}$
+   \EndWhile
+   \State \textbf{return} $\{c_j\}$
+\EndProcedure
+\end{algorithmic}
+\end{minipage}
+\end{center}
+
+In the above pseudocode, $A\hadamard B$ denotes the elementwise
+(Hadamard) product of matrices or vectors $A$ and $B$, and $\Zs{t} \sim \text{Bernoulli}(n, \thetas{t})$
+is an $n\times p$ matrix of $\{0,1\}$ values, with column $Z_j^{(t)}$ sampled
+independently from a $\text{Bernoulli}(\thetas{t}_j)$ distribution.
+Thus, $\Xs{t}$ is a sparsified version of the design matrix.
+The expected prediction on a new test point $x$ is
+\begin{align}
+\hat y(x) & = \E \sum_{t=1}^T \bigl(x\hadamard Z^{(t)}\bigr)^T \betas{t} \\
+& = \sum_{t=1}^T \bigl(x\hadamard \thetas{t}\bigl)^T \betas{t} \\
+& =  x^T \Bigl(\sum_{t=1}^T \thetas{t}\hadamard \betas{t}\Bigr) \\
+& = x^T \hat \beta.
+\end{align}
+
+Using the
+Clarkson-Woodruff line of algorithms for regression with sparse designs, each stage can be carried out
+using $O\left(\textit{nnz}(\Xs{t})+p^3\right)$ computation,
+where $\textit{nnz}(\mbf{A})$ is the number of nonzeros in the matrix $\mbf{A}$.  Thus,
+the total expected computation time scales as 
+$$O\left(n\sum_{t=1}^T \|\thetas{t}\|_1 + Tp^3\right).$$
+
+The sparsification can depend on the previous fit--this
+is encoded in the parameters $\thetas{t}$.
+Interesting variants of this procedure will sparsify in a dynamic
+manner.  For example, we can sparsify more ($\thetas{t}_j$ small)
+for variables that have small coefficients, or small gradient (change
+in the coefficients).  
+In the simplest case, we take $\thetas{t}=\theta$ to be constant, and
+fix the number of iterations $T$.
+
+
+The following plot shows the tradeoff in a simulation for a regression problem with
+sample size $n=10{,}000$, dimension $p=10$, and number of relevant
+variables $s=3$.  We take $T=5$.  
+
+\begin{center}
+  \includegraphics[width=.6\textwidth]{risk-theta}
+\end{center}
+
+The risk is computed as
+\begin{equation}
+\text{Risk}(\hat \beta) = \frac{\|\beta^* - \hat\beta\|_{\Sigma}^2}{\|\beta^*\|_{\Sigma}^2}
+\end{equation}
+where $\Sigma$ is the population covariance and $\beta^*$ is the true
+linear model. Adaptively adjusting $\thetas{t}$ should give a more
+favorable tradeoff.
+
+Po-Ling Loh and Martin Wainwright's recent work on corrupted data may
+give some of the tools needed for analyzing this procedure.
+
+\end{document}

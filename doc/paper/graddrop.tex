@@ -1,0 +1,85 @@
+%\documentclass[12pt,pdftex,aos]{imsart}
+\documentclass[12pt,pdftex,generic]{imsart}
+
+\RequirePackage[OT1]{fontenc}
+\usepackage{amsthm,amsmath,amsfonts,natbib,mathtools}
+\RequirePackage{hypernat}
+\usepackage[ruled,section]{algorithm}
+\usepackage[noend]{algorithmic}
+\usepackage{graphicx}
+\usepackage[hscale=0.7,vscale=0.8]{geometry}
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{yhmath}
+\usepackage{accents}
+
+
+\renewcommand{\baselinestretch}{1.1}
+%\parskip12pt
+%\parindent0pt
+\setcounter{tocdepth}{2}
+
+\input{macros}
+\input{symbols}
+
+\begin{document}
+
+\begin{frontmatter}
+\title{The Graduated Dropout:  Computation-Risk Tradeoffs Using Data Sparsification}
+\runtitle{The Graduated Dropout}
+
+\begin{aug}
+\vskip10pt
+\author{\fnms{Dinah} \snm{Shender}\ead[label=e1]{dinah@uchicago.edu}}
+\comma 
+\author{\fnms{John} \snm{Lafferty}\ead[label=e2]{lafferty@galton.uchicago.edu}}
+\and
+\author{\fnms{David} \snm{McAllester}\ead[label=e3]{mcallester@ttic.edu}}
+\address{
+%\begin{tabular}{cc}
+%\\[10pt]
+%Department of Statistics & Toyota Technological Institute at Chicago\\
+%Department of Computer Science & \\
+%University of Chicago & 
+%\end{tabular}
+%\\[20pt]
+%\printead{e1,e2,e3}
+}
+\end{aug}
+
+\input{abstract}
+%\tableofcontents
+\vskip20pt
+\end{frontmatter}
+
+\maketitle
+\vskip10pt
+
+%\tableofcontents
+
+\input{introduction}
+\input{subsampling}
+
+
+\clearpage
+
+
+\newpage
+%\input{appendix}
+%\newpage
+%\input{notes}
+
+
+\section*{Acknowledgements}
+Research supported in part by NSF grants IIS-1116730, 
+AFOSR grant FA9550-09-1-0373, ONR grant
+N000141210762, and an Amazon AWS in Education Machine Learning
+Research grant.
+
+
+\bibliographystyle{imsart-nameyear}
+\bibliography{graddrop}
+
+
+\end{document}
