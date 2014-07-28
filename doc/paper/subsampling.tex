@@ -10,17 +10,19 @@ criterion
 where $\Y$ is an $n$-vector of response variables, and $\X$ is an
 $n\times p$ design matrix of predictor variables, formed from data
 $(X_i, Y_i)$, with $X_i\in\reals^p$ and $Y_i\in\reals$, for
-$i=1,\ldots, n$, with $n\gg p$.  Computing the least squares
-estimator $\hat\beta_n = (\X^T \X)^{-1} \X^T \Y$ directly requires
-$O(np^2 + p^3)$ computation, with the first term the computation
-required to compute the sample covariance $\frac{1}{n} \X^T \X$,
-and the second term the computation required to compute its inverse.
+$i=1,\ldots, n$, with $n\gg p$.  The computation required
+to directly compute the least squares
+estimator $\hat\beta_n = (\X^T \X)^{-1} \X^T \Y$ scales as
+$O(np^2 + p^3)$.  The first term, $O(np^2)$, is the computation
+required to compute the sample covariance $\frac{1}{n} \X^T \X$.
+The second term, $O(p^3)$, is the computation required to compute its
+inverse, and solve the linear system.
 Assuming that the data are generated according to a linear model
 $Y_i = X_i^T \beta^* + \epsilon_i$, with $\Var(\epsilon_i) =
 \sigma^2$, standard analysis shows the squared error decays as
 $\E(\|\hat\beta_n - \beta^*\|_2^2) = O(p/n)$.
 
-The easiest way of making a computation-risk tradeoff is to simply 
+A simple way of making a computation-risk tradeoff is to 
 subsample the data.  Suppose that $\X_m$ is a random sample
 of $m$ rows of $\X$, with corresponding response $Y_m$.
 Then the least squares estimator $\hat \beta_m =
@@ -28,8 +30,8 @@ Then the least squares estimator $\hat \beta_m =
 has error scaling as $\|\hat\beta_m - \beta^*\|_2^2 = O(p/m)$
 and computation scaling as $O(m p^2 + p^3)$.  
 
-As an alternative, suppose that we dropout random entries from $\X$
-rather than removing entire rows.  In particular, let
+Subsampling removes entire rows of the data matrix.  As an alternative, suppose that we dropout random entries from $\X$.
+In particular, let 
 \begin{equation}
 \Xdrop = \X \hadamard \bZ
 \end{equation}
@@ -42,28 +44,38 @@ estimator
 \drop{\beta}_n = \argmin_\beta \|Y - \drop{\X} \beta\|_2 ^2.
 \end{equation}
 
-\vskip10pt
-\centerline{\textit{\small BACKGROUND ON SUBSPACE EMBEDDING HERE}}
-\vskip10pt
-
 Using fast subspace embedding algorithms, the estimator
 $\drop{\beta}_n$ can be computed in time
+that scales according to the number of nonzeros in the sparsified
+matrix, denoted $\textit{nnz}(\drop{\X})$.   Ignoring approximation error, the computation scales as
 $O\bigl(\textit{nnz}(\drop{\X}) +p^3\bigr)$.
-Since the mean number of nonzeros is $\E_\theta\bigl( \nnz{\drop{\X}}\bigr) =
-\sum_{j=1}^p n\theta_j$, we can express this
-computation time as $O_P\bigl( n\|\theta\|_1 + p^3\bigr)$
+We describe subspace embedding algorithms in
+Section~\ref{sec:subspaceembedding},
+where we give a more detailed account of the computational cost.
+The mean number of nonzeros under this model of random dropout is $\E_\theta\bigl( \nnz{\drop{\X}}\bigr) =
+\sum_{j=1}^p n\theta_j$.  Thus, the expected 
+computation time is $O_P\bigl( n\|\theta\|_1 + p^3\bigr)$
 where the $O_P$ indicates that the bound holds with high probability.
-The key question is, how does the risk scale, and do we obtain
-a favorable tradeoff relative to subsampling?
+
 
 Figure~\ref{fig:doss} shows the results of simulations comparing the
 estimators based on subsampling and the dropout.  For the dropout
 method, each data item $X_{ij}$ is kept with probability $\theta_0$,
-and dropped out with probability $1-\theta_0$, controlling the 
-computation-risk tradeoff.  The simulation measures
+and dropped out with probability $1-\theta_0$.  Thus, the parameter
+$\theta_0$ controls the computation-risk tradeoff.  The simulation measures
 computation in terms of the theoretical bounds
 for optimal subspace embedding and directly solving for the least squares
-estimator on the subsampled data.
+estimator on the subsampled data.  
+
+The simulation indicates a clear
+advantage for dropout over subsampling in terms of computation-risk
+tradeoff.  In the following section, we describe subspace embedding
+algorithms, and an analysis of the computational cost of
+dropout least squares.    In Section~\ref{sec:droprisk}
+we give an analysis of the excess risk that dropout incurs. Together,
+these two analyses establish the theoretical computation-risk tradeoff
+of the dropout method for approximate least squares regression.
+
 
 \begin{figure}
 \begin{center}
