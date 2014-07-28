@@ -13,13 +13,13 @@ computation and error should be explicit and well understood theoretically.
 In this paper, we propose a procedure to iteratively ``drop out''
 entries in the data matrix, drawing inspiration from a recent
 heuristic for training large multi-layer neural networks for image
-processing \cite{Hinton:2012}.  The dropout method in deep learning is
+processing \citep{Hinton:2012}.  The dropout method in deep learning is
 used as a form of regularization to avoid over-fitting.  A formal
 correspondence with regularization was established in \cite{Wager:2013}.
 In contrast, our rationale for employing the dropout is to enable more
 efficient computation of a linear model, while controlling the excess
 risk that this data corruption incurs.  To achieve this we make use of recent algorithmic advances in
-``subspace embedding'' techniques \cite{Clarkson:2012,Nelson:2012},
+``subspace embedding'' techniques \citep{Clarkson:2012,Nelson:2012},
 which enable fast algorithms for low rank approximation and least
 squares estimation from sparse data matrices.
 
@@ -45,7 +45,7 @@ computation.
 
 Toward this goal, we propose a dropout version of the
 alternating direction method of multipliers (ADMM) algorithm for
-approximate $\ell_1$-regularized least squares (lasso) \cite{Boyd:2011}.  Each stage of
+approximate $\ell_1$-regularized least squares (lasso) \citep{Boyd:2011}.  Each stage of
 the ADMM algorithm for the lasso involves a form of ridge regression.
 Leveraging our analysis of the dropout for this case, we gradually
 decrease the dropout rate for variables identified as relevant in an
